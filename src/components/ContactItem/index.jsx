@@ -22,9 +22,9 @@ const ContactItem = ({ contact }) => {
 
 ContactItem.propTypes = {
   contact: PropTypes.shape({
-    name: PropTypes.string,
-    id: PropTypes.number,
-    number: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    number: PropTypes.number.isRequired,
   }),
 };
 

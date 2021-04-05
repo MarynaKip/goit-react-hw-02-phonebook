@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 const initialState = {
-  contacts: [],
-  filter: "",
+  id: "",
+
   name: "",
   number: "",
 };
 
 const Contacts = ({ onSubmit }) => {
   const [state, setState] = useState(initialState);
-  const { name, number, filter } = state;
+  //const [filter, setFilter] = useState("");
+  const { name, number } = state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +18,9 @@ const Contacts = ({ onSubmit }) => {
     const newItem = {
       id: Date.now(), // uuid
       name,
-      number,
-      filter,
+      number: Number(number),
     };
-
+    //contacts.push(newItem);
     onSubmit(newItem);
   };
 
@@ -33,8 +33,6 @@ const Contacts = ({ onSubmit }) => {
 
   return (
     <>
-      <span>Find:</span>
-      <input type="text" value={filter} name="filter" onChange={handleChange} />
       <form onSubmit={handleSubmit}>
         <label>
           <span>Name:</span>

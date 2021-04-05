@@ -14,19 +14,9 @@ const ContactList = ({ contacts }) => {
   console.log(contacts);
   return (
     <ul className={classes.list}>
-      {contacts
-        .filter((contact) =>
-          contact.name.toLowerCase().includes(contact.filter.toLowerCase())
-        )
-        .map(
-          (contact) => (
-            // contact.name.includes(contact.filter) ? (
-            <ContactItem contact={contact} />
-          )
-          // ) : (
-          //   ""
-          // )
-        )}
+      {contacts.map((contact) => (
+        <ContactItem contact={contact} />
+      ))}
     </ul>
   );
 };
