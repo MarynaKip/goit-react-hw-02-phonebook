@@ -1,44 +1,43 @@
 import "./App.css";
 import { useState } from "react";
+import { useAlert } from "react-alert";
 import Contacts from "./components/Contacts";
 import ContactList from "./components/ContactList";
 
 const App = () => {
-  const [state, setState] = useState({ filter: "", contacts: [] });
-  const { filter, contacts } = state;
+  const alert = useAlert();
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState("");
+
+  const handleFilter = ({ target }) => setFilter(target.value);
+
+  const contactsArr = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const handleAddContact = (newContact) => {
-    setState((prev) => ({
-      filter: prev.filter,
-      contacts: [...prev.contacts, newContact],
-    }));
+    if (contacts.some((contact) => contact.name === newContact.name)) {
+      alert.show(`Contact is already in contscts.`);
+      return;
+    }
+    setContacts((prevState) => [...prevState, newContact]);
   };
 
-  // const filterContacts = (contacts, filter) => {
-  //   contacts.filter((contact) =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase())
-  //   );
-  // };
-
-  const handleFilterChange = (e) => {
-    setState({
-      filter: e.target.value,
-      // contacts: filterContacts,
-    });
+  const handleDeleteItem = ({ target }) => {
+    const newContactList = contacts.filter(
+      (contact) => target.id !== contact.id
+    );
+    setContacts([...newContactList]);
   };
 
   return (
     <>
       <span>Find:</span>
-      <input
-        type="text"
-        value={filter}
-        name="filter"
-        onChange={handleFilterChange}
-      />
+      <input type="text" value={filter} name="filter" onChange={handleFilter} />
+
       <Contacts onSubmit={handleAddContact} />
 
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contactsArr} onClick={handleDeleteItem} />
     </>
   );
 };

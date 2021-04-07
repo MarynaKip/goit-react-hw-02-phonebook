@@ -9,13 +9,16 @@ const useStyles = createUseStyles({
   },
 });
 
-const ContactItem = ({ contact }) => {
+const ContactItem = ({ contact, onClick }) => {
   const classes = useStyles();
 
   return (
     <li key={contact.id} className={classes.item}>
       {contact.name}
       {contact.number}
+      <button id={contact.id} type="button" onClick={onClick}>
+        Delete
+      </button>
     </li>
   );
 };
@@ -23,9 +26,10 @@ const ContactItem = ({ contact }) => {
 ContactItem.propTypes = {
   contact: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     number: PropTypes.number.isRequired,
   }),
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ContactItem;

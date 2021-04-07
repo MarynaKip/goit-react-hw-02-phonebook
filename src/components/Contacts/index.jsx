@@ -1,26 +1,27 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   id: "",
-
   name: "",
   number: "",
 };
 
 const Contacts = ({ onSubmit }) => {
   const [state, setState] = useState(initialState);
-  //const [filter, setFilter] = useState("");
+
   const { name, number } = state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newItem = {
-      id: Date.now(), // uuid
+      id: uuidv4(), // uuid
       name,
       number: Number(number),
     };
-    //contacts.push(newItem);
+
     onSubmit(newItem);
   };
 
@@ -62,6 +63,10 @@ const Contacts = ({ onSubmit }) => {
       </form>
     </>
   );
+};
+
+Contacts.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Contacts;

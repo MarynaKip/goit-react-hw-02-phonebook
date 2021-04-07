@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import ContactItem from "../ContactItem";
 import { createUseStyles } from "react-jss";
 
@@ -9,16 +10,20 @@ const useStyles = createUseStyles({
   },
 });
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onClick }) => {
   const classes = useStyles();
-  console.log(contacts);
+
   return (
     <ul className={classes.list}>
       {contacts.map((contact) => (
-        <ContactItem contact={contact} />
+        <ContactItem contact={contact} onClick={onClick} />
       ))}
     </ul>
   );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.array,
 };
 
 export default ContactList;
