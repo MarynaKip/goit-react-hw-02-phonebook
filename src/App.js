@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
 import Contacts from "./components/Contacts";
 import ContactList from "./components/ContactList";
@@ -8,6 +8,15 @@ const App = () => {
   const alert = useAlert();
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    const storageContacts = localStorage.getItem("contacts");
+    setContacts(JSON.parse(storageContacts));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  });
 
   const handleFilter = ({ target }) => setFilter(target.value);
 
